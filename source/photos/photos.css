@@ -1,0 +1,25 @@
+.photos {
+    min-width: 1000px
+}
+
+.photos__list {
+    right: auto;
+    width: 200px;
+
+    background-color: greenyellow;
+}
+
+.photos__preview {
+    left: 200px;
+    bottom: 75px;
+
+    background-color: royalblue;
+}
+
+.photos__upload {
+    top: auto;
+    left: 200px;
+    height: 75px;
+
+    background-color: forestgreen;
+}
