@@ -1,0 +1,20 @@
+//mixin preloader()
+//    div.preloader-wrapper.big.active
+//        div.spinner-layer.spinner-blue-only
+//            div.circle-clipper.left
+//                div.circle
+//            div.gap-patch
+//                div.circle
+//            div.circle-clipper.right
+//                div.circle
+
+div.site__block.site__widget.photos__list
+    div.collection.photos__list-box(ng-if="vm.photos.length > 0")
+        div.collection-item.photos__list-item(ng-repeat="photo in vm.photos track by $index", ng-class="{active: photo.selected}" ng-click="vm.select(photo)")
+            div.card
+                div.card-image.center
+                    img(ng-src="{{photo.thumbnail}}", width="100%")
+                    //div(ng-if="!!photo.thumbnail")
+                    //    img(ng-src="{{photo.thumbnail}}", width="100%")
+                    //div.card-content(ng-if="!photo.thumbnail")
+                    //    +preloader()

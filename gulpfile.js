@@ -4,8 +4,8 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     using = require('gulp-using'),
     jade = require('gulp-jade'),
-    uglifyjs = require('gulp-uglify'),
-    minifycss = require('gulp-minify-css'),
+    //uglifyjs = require('gulp-uglify'),
+    //minifycss = require('gulp-minify-css'),
     imagemin = require('gulp-imagemin');
 
 var paths = {
@@ -18,10 +18,13 @@ var paths = {
 
 gulp.task('plugins', function() {
     var files = [
+        'bower_components/angular/angular-csp.css',
         'bower_components/angular/angular.js',
         'bower_components/angular/angular.min.js',
         'bower_components/angular/angular.min.js.map',
-        'bower_components/angular/angular-csp.css',
+        'bower_components/ng-file-upload/ng-file-upload.js',
+        'bower_components/ng-file-upload/ng-file-upload.min.js',
+        'bower_components/canvas-to-blob/js/canvas-to-blob.min.js',
         'bower_components/jquery/dist/**/*.*',
         'bower_components/materialize/dist/**/*.*'
     ];
@@ -78,7 +81,7 @@ gulp.task('server', ['build'], function() {
     gulp.watch(all(paths.images), ['images']);
 
     var options = {
-        livereload: true,
+        livereload: false,
         open: false
     };
     return gulp.src(paths.dest)

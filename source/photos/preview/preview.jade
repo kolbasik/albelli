@@ -1,0 +1,9 @@
+div.site__block.site__widget.photos__preview.z-depth-1(photos-dnd)
+    div(photos-preloader, progress="vm.progress()")
+    div.photos__preview__content(ng-if="vm.photos.length")
+        h4 {{ vm.photos[0].title }}
+        img(ng-src="{{ vm.photos[0].src}}", alt="preview photo")
+
+    div.site__block.photos__preview__drop_box(ngf-drop, ngf-multiple="true", ngf-allow-dir="true", ngf-accept="'.jpg,.png'", ngf-change="vm.upload($files)")
+        div.valign-wrapper.center-align(style="width:100%;height:100%")
+            h1.photos__preview__drop_box__title.white-text.valign Drop images here!

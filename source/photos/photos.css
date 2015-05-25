@@ -2,24 +2,59 @@
     min-width: 1000px
 }
 
+/*  Layout */
 .photos__list {
     right: auto;
-    width: 200px;
-
-    background-color: greenyellow;
+    width: 250px;
 }
 
 .photos__preview {
-    left: 200px;
+    left: 250px;
     bottom: 75px;
-
-    background-color: royalblue;
 }
 
 .photos__upload {
     top: auto;
-    left: 200px;
+    left: 250px;
     height: 75px;
+}
 
-    background-color: forestgreen;
+/*  LIST */
+.photos__list-box {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 200px;
+    overflow: visible;
+}
+
+.photos__list-item {
+}
+
+/*  PREVIEW */
+.photos__preview__content {
+    display: block !important;
+}
+
+.photos__preview__drop_box {
+    display: none !important;
+}
+
+.photos-dnd .photos__preview__content {
+    display: none !important;
+}
+
+.photos-dnd .photos__preview__drop_box {
+    display: block !important;
+    background-color: #0059bc
+}
+
+.photos-dnd .photos__preview__drop_box__title {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*  UPLOAD */
+.photos__upload__panel {
+    margin-left: auto;
 }
