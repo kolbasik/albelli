@@ -1,12 +1,13 @@
-(function(window, angular){
+(function(window, angular, URL){
     'use strict';
 
     function Photo(file) {
+        if (!file) file = {};
         this.title = file.name + ' / ' + file.size + ' bytes';
         this.name = file.name;
         this.size = file.size;
         this.file = file.file;
-        this.src = window.URL.createObjectURL(file);
+        this.src = URL.createObjectURL(file);
         this.thumbnail = '';
         this.selected = false;
     }
@@ -27,7 +28,6 @@
             this.select(photos[0]);
         }
         this.photos.push.apply(this.photos, photos);
-        this.progress = 100 - (this._files.length / this._total) * 100;
     };
 
     PhotosService.prototype.select = function(photo) {
@@ -39,29 +39,49 @@
         this.selected[0] = photo;
     };
 
-    PhotosService.prototype.upload = function(files) {
-        if (files.length === 0) return;
-        var that = this;
-        that._files.push.apply(that._files, files);
-        that._total = that._files.length;
+    PhotosService.prototype.upload = function(files, options) {
+        var that = this,
+            deferred = that.$q.defer(),
+            defaults = {
+                batch: 5,
+                timeout: 50,
+                thumbnail: 200
+            };
+        options = angular.extend({}, defaults, options || {});
 
-        function partial(){
-            if(that._files.length === 0) {
-                return;
-            }
-            var photos = that._files.splice(0, 5).map(function(file){
-                return new Photo(file);
-            });
-            that.$q.all(photos.map(function(photo){
-                return that.resize(photo.src, 200).then(function(thumbnail) {
-                    photo.thumbnail = thumbnail;
-                });
-            })).then(function(){
-                that._append(photos);
-                that.$timeout(partial, 50);
-            });
+        if (!files || files.length === 0) {
+            deferred.resolve(that);
         }
-        that.$timeout(partial, 50);
+        else {
+            that._files.push.apply(that._files, files);
+            that._total = that._files.length;
+
+            that.partial = function partial(){
+                console.log('partial', that._files.length);
+
+                if(that._files.length === 0) {
+                    return deferred.resolve(that);
+                }
+                var photos = that._files.splice(0, options.batch).map(function(file){
+                    return new Photo(file);
+                });
+                that.$q.all(photos.map(function(photo){
+                    return that.resize(photo.src, options.thumbnail).then(function(thumbnail) {
+                        photo.thumbnail = thumbnail;
+                    });
+                })).then(function() {
+                    that._append(photos);
+                    that.progress = 100 - (that._files.length / that._total) * 100;
+                    deferred.notify(that.progress);
+                    that.$timeout(that.partial, options.timeout);
+                }, function(error){
+                    deferred.reject(error);
+                });
+            };
+            that.$timeout(that.partial, options.timeout);
+        }
+
+        return deferred.promise;
     };
 
     PhotosService.prototype.resize = function(src, width, type, quality){
@@ -83,7 +103,7 @@
                 that.$timeout(function () {
                     canvas.toBlob(function (blob) {
                         that.$timeout(function () {
-                            var dst = window.URL.createObjectURL(blob);
+                            var dst = URL.createObjectURL(blob);
                             resolve(dst);
                         });
                     }, type, quality );
@@ -93,6 +113,8 @@
         });
     };
 
-    angular.module('Photos.Service', []).service('PhotosService', PhotosService);
+    angular.module('Photos.Service', [])
+        .factory('Photo', function () { return Photo; })
+        .service('PhotosService', PhotosService);
 
-})(window, angular);
+})(window, angular, window.URL || window.webkitURL);

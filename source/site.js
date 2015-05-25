@@ -14,4 +14,4 @@
         };
     }
 
-})(window, Materialize);
+})(window, window.Materialize);

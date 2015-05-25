@@ -1,6 +1,9 @@
 div.site__block.site__widget.photos__preview.z-depth-1(photos-dnd)
     div(photos-preloader, progress="vm.progress()")
-    div.photos__preview__content(ng-if="vm.photos.length")
+    div.photos__preview__content(ng-if="vm.photos.length==0")
+        h4 You can upload images using 'Select File' button or using Drag and Drop.
+
+    div.photos__preview__content(ng-if="vm.photos.length>0")
         h4 {{ vm.photos[0].title }}
         img(ng-src="{{ vm.photos[0].src}}", alt="preview photo")
 
