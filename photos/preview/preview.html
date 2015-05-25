@@ -1,0 +1,15 @@
+
+<div photos-dnd="photos-dnd" class="site__block site__widget photos__preview z-depth-1">
+  <div photos-preloader="photos-preloader" progress="vm.progress()"></div>
+  <div ng-if="vm.photos.length==0" class="photos__preview__content">
+    <h4>You can upload images using 'Select File' button or using Drag and Drop.</h4>
+  </div>
+  <div ng-if="vm.photos.length&gt;0" class="photos__preview__content">
+    <h4>{{ vm.photos[0].title }}</h4><img ng-src="{{ vm.photos[0].src}}" alt="preview photo"/>
+  </div>
+  <div ngf-drop="ngf-drop" ngf-multiple="true" ngf-allow-dir="true" ngf-accept="'.jpg,.png'" ngf-change="vm.upload($files)" class="site__block photos__preview__drop_box">
+    <div style="width:100%;height:100%" class="valign-wrapper center-align">
+      <h1 class="photos__preview__drop_box__title white-text valign">Drop images here!</h1>
+    </div>
+  </div>
+</div>

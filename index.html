@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Albelli: Photo Management Tool</title>
+    <meta name="description" content="The Albelli test assignment of Photo Management Tool">
+    <link rel="stylesheet" media="screen,projection" href="plugins/angular-csp.css">
+    <link rel="stylesheet" media="screen,projection" href="plugins/css/materialize.min.css">
+    <link rel="stylesheet" media="screen,projection" href="site.css">
+  </head>
+  <body><!--[if lt IE 8]>
+    <div class="section">
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser.
+        Please <a href="http://browsehappy.com/">upgrade your browser</a>
+        to improve your experience.
+      </p>
+    </div><![endif]-->
+    <photos-view></photos-view>
+    <script>window.onload = function() { angular.element(document).ready(function() { angular.bootstrap(document.body, ['PhotosApp']); }); }</script>
+    <script src="plugins/jquery.min.js"></script>
+    <script src="plugins/js/materialize.min.js"></script>
+    <script src="plugins/angular.min.js"></script>
+    <script src="plugins/ng-file-upload.min.js"></script>
+    <script src="plugins/canvas-to-blob.min.js"></script>
+    <script src="site.js"></script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+
+<!--mixin preloader()-->
+<!--    div.preloader-wrapper.big.active-->
+<!--        div.spinner-layer.spinner-blue-only-->
+<!--            div.circle-clipper.left-->
+<!--                div.circle-->
+<!--            div.gap-patch-->
+<!--                div.circle-->
+<!--            div.circle-clipper.right-->
+<!--                div.circle-->
+<div class="site__block site__widget photos__list">
+  <div ng-if="vm.photos.length &gt; 0" class="collection photos__list-box">
+    <div ng-repeat="photo in vm.photos track by $index" ng-class="{active: photo.selected}" ng-click="vm.select(photo)" class="collection-item photos__list-item">
+      <div class="card">
+        <div class="card-image center"><img ng-src="{{photo.thumbnail}}" width="100%"/>
+          <!--div(ng-if="!!photo.thumbnail")-->
+          <!--    img(ng-src="{{photo.thumbnail}}", width="100%")-->
+          <!--div.card-content(ng-if="!photo.thumbnail")-->
+          <!--    +preloader()-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
