@@ -57,8 +57,6 @@
             that._total = that._files.length;
 
             that.partial = function partial(){
-                console.log('partial', that._files.length);
-
                 if(that._files.length === 0) {
                     return deferred.resolve(that);
                 }
